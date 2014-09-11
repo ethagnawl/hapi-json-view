@@ -1,0 +1,24 @@
+{
+  "name": "hapi-json-view",
+  "version": "0.0.1",
+  "description": "JSON view engine for hapi.",
+  "main": "index.js",
+  "scripts": {
+    "test": "gulp test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gergoerdosi@github.com/gergoerdosi/hapi-json-view.git"
+  },
+  "keywords": [
+    "hapi",
+    "json",
+    "view"
+  ],
+  "author": "Gergo Erdosi <gergo@gergoerdosi.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gergoerdosi/hapi-json-view/issues"
+  },
+  "homepage": "https://github.com/gergoerdosi/hapi-json-view"
+}
