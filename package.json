@@ -1,6 +1,6 @@
 {
   "name": "hapi-json-view",
-  "version": "0.0.4",
+  "version": "1.0.0",
   "description": "JSON view engine for hapi.",
   "main": "index.js",
   "scripts": {
