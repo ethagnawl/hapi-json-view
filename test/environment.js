@@ -47,7 +47,9 @@ describe('compile()', function () {
 
     it('renders a template', function (done) {
 
-        var server = new Hapi.Server({ debug: { request: ['error'] } });
+        var server = new Hapi.Server();
+        server.connection();
+
         server.views({
             engines: {
                 tmpl: {
