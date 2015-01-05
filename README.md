@@ -34,10 +34,10 @@ server.route({
     handler: function (request, reply) {
 
         var article = {
-            _id: '507f1f77bcf86cd799439011'
+            _id: '507f1f77bcf86cd799439011',
             title: 'Node.js',
             author: {
-                _id: '507f191e810c19729de860ea'
+                _id: '507f191e810c19729de860ea',
                 name: 'John Doe'
             }
         };
@@ -47,7 +47,7 @@ server.route({
 });
 ```
 
-templates/articles/read.js:
+templates/article.js:
 
 ```
 json.set('title', article.title);
