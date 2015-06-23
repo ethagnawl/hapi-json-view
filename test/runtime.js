@@ -42,7 +42,7 @@ describe('set()', function () {
         var json = new Runtime();
         json.set('test', 'example');
 
-        expect(json.content).to.deep.equal({test: 'example'});
+        expect(json.content).to.deep.equal({ test: 'example' });
         done();
     });
 
