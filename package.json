@@ -4,7 +4,7 @@
   "description": "A view engine for the hapi framework.",
   "main": "index.js",
   "scripts": {
-    "test": "lab -a code -t 100 -L",
+    "test": "lab -a code -t 100 -L"
   },
   "repository": {
     "type": "git",
