@@ -1,8 +1,8 @@
 {
   "name": "hapi-json-view",
   "version": "2.0.2",
-  "description": "A view engine for the hapi framework.",
-  "main": "index.js",
+  "description": "JSON view engine for hapi.",
+  "main": "lib/index.js",
   "scripts": {
     "test": "lab -a code -t 100 -L"
   },
@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/gergoerdosi/hapi-json-view",
   "peerDependencies": {
-    "hapi": ">=8.x.x"
+    "hapi": "8.x.x"
   },
   "devDependencies": {
     "code": "1.x.x",
