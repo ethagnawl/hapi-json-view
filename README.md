@@ -4,25 +4,28 @@ A view engine for the hapi framework.
 
 ## Installation
 
-```
-npm install hapi-json-view
+```sh
+npm install --save hapi-json-view
 ```
 
 ## Usage
 
 server.js:
 
-```
-var Path = require('path');
+```js
 var Hapi = require('hapi');
 var HapiJsonView = require('hapi-json-view');
+var Path = require('path');
 
-var server = new Hapi.Server(3000);
+var server = new Hapi.Server();
+server.connection({ port: 8080 });
+
 server.views({
     engines: {
         js: {
             module: HapiJsonView.create(),
-            compileMode: 'async'
+            compileMode: 'async',
+            contentType: 'application/json'
         }
     },
     path: Path.join(__dirname, 'templates')
@@ -49,7 +52,7 @@ server.route({
 
 templates/article.js:
 
-```
+```js
 json.set('title', article.title);
 json.set('author', function (json) {
 
@@ -59,7 +62,7 @@ json.set('author', function (json) {
 
 This template generates the following object:
 
-```
+```js
 {
     title: 'Node.js',
     author: {
@@ -74,7 +77,7 @@ This template generates the following object:
 
 It assigns a value to a key.
 
-```
+```js
 json.set('title', 'Node.js');
 
 // => { title: 'Node.js' }
@@ -82,7 +85,7 @@ json.set('title', 'Node.js');
 
 The value can be a function. If `json.set()` is called with a key, it creates an object:
 
-```
+```js
 json.set('author', function (json) {
 
     json.set('name', 'John Doe');
@@ -94,7 +97,7 @@ json.set('author', function (json) {
 If `json.set()` is called without a key, it assign the value to the parent key:
 
 
-```
+```js
 json.set('title', function (json) {
 
     json.set('Node.js');
@@ -107,12 +110,12 @@ json.set('title', function (json) {
 
 It creates a new array by iterating through an existing array:
 
-```
+```js
 var numbers = ['one', 'two'];
 
 json.set('numbers', json.array(numbers, function (json, number) {
 
-    json.set('number': number);
+    json.set('number', number);
 }));
 
 // => { numbers: [{ number: 'one' }, { number: 'two' }] }
@@ -122,7 +125,7 @@ json.set('numbers', json.array(numbers, function (json, number) {
 
 It extracts values from an object and assigns them to the result object:
 
-```
+```js
 var numbers = { one: 'one', two: 'two', three: 'three' };
 
 json.extract(numbers, ['two', 'three']);
@@ -134,27 +137,30 @@ json.extract(numbers, ['two', 'three']);
 
 Helpers can be registered through the engine configuration:
 
-```
-var Path = require('path');
+```js
 var Hapi = require('hapi');
 var HapiJsonView = require('hapi-json-view');
+var Path = require('path');
 
-var server = new Hapi.Server(3000);
+var server = new Hapi.Server();
+server.connection({ port: 8080 });
+
 server.views({
     engines: {
         js: {
             module: HapiJsonView.create(),
-            compileMode: 'async'
+            compileMode: 'async',
+            contentType: 'application/json'
         }
     },
     path: Path.join(__dirname, 'templates'),
-    helpersPath: Path.join(__dirname, 'templates/helpers');
+    helpersPath: Path.join(__dirname, 'templates/helpers')
 });
 ```
 
 They can then be used by their name:
 
-```
+```js
 json.set('title', json.helper('uppercase', article.title));
 ```
 
@@ -162,26 +168,29 @@ json.set('title', json.helper('uppercase', article.title));
 
 Partials can be registered through the engine configuration:
 
-```
-var Path = require('path');
+```js
 var Hapi = require('hapi');
 var HapiJsonView = require('hapi-json-view');
+var Path = require('path');
 
-var server = new Hapi.Server(3000);
+var server = new Hapi.Server();
+server.connection({ port: 8080 });
+
 server.views({
     engines: {
         js: {
             module: HapiJsonView.create(),
-            compileMode: 'async'
+            compileMode: 'async',
+            contentType: 'application/json'
         }
     },
     path: Path.join(__dirname, 'templates'),
-    partialsPath: Path.join(__dirname, 'templates/partials');
+    partialsPath: Path.join(__dirname, 'templates/partials')
 });
 ```
 
 They can then be used by their name:
 
-```
+```js
 json.set('author', json.partial('author', { author: article.author }));
 ```
