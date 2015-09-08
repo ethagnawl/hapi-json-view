@@ -5,6 +5,7 @@ var Code = require('code');
 var Hapi = require('hapi');
 var Lab = require('lab');
 var Path = require('path');
+var Vision = require('vision');
 
 // Load internal modules
 var Environment = require('../lib/environment');
@@ -50,35 +51,42 @@ describe('compile()', function () {
         var server = new Hapi.Server();
         server.connection();
 
-        server.views({
-            engines: {
-                tmpl: {
-                    module: HapiJsonView.create(),
-                    compileMode: 'async'
-                }
-            },
-            path: Path.join(__dirname, 'templates'),
-            helpersPath: Path.join(__dirname, 'templates/helpers'),
-            partialsPath: Path.join(__dirname, 'templates/partials')
-        });
+        server.register(Vision, function (err) {
 
-        server.route({
-            method: 'GET',
-            path: '/',
-            handler: function (request, reply) {
-
-                var article = { title: 'example' };
-                var author = { name: 'example' };
-
-                reply.view('article.tmpl', { article: article, author: author });
+            if (err) {
+                return done(err);
             }
-        });
 
-        server.inject('/', function (res) {
+            server.views({
+                engines: {
+                    tmpl: {
+                        module: HapiJsonView.create(),
+                        compileMode: 'async'
+                    }
+                },
+                path: Path.join(__dirname, 'templates'),
+                helpersPath: Path.join(__dirname, 'templates/helpers'),
+                partialsPath: Path.join(__dirname, 'templates/partials')
+            });
 
-            expect(res.statusCode).to.equal(200);
-            expect(res.result).to.equal('{"title":"EXAMPLE","author":{"name":"example"}}');
-            done();
+            server.route({
+                method: 'GET',
+                path: '/',
+                handler: function (request, reply) {
+
+                    var article = { title: 'example' };
+                    var author = { name: 'example' };
+
+                    reply.view('article.tmpl', { article: article, author: author });
+                }
+            });
+
+            server.inject('/', function (res) {
+
+                expect(res.statusCode).to.equal(200);
+                expect(res.result).to.equal('{"title":"EXAMPLE","author":{"name":"example"}}');
+                done();
+            });
         });
     });
 });
