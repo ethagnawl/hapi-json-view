@@ -22,12 +22,12 @@
   },
   "homepage": "https://github.com/gergoerdosi/hapi-json-view",
   "peerDependencies": {
-    "hapi": "9.x.x",
+    "hapi": "11.x.x",
     "vision": "3.x.x"
   },
   "devDependencies": {
     "code": "1.x.x",
-    "hapi": "9.x.x",
+    "hapi": "11.x.x",
     "lab": "5.x.x",
     "vision": "3.x.x"
   }
