@@ -1,11 +1,11 @@
-# Hapi JSON View [![Build Status](https://travis-ci.org/gergoerdosi/hapi-json-view.svg)](https://travis-ci.org/gergoerdosi/hapi-json-view)
+# Hapi JSON View [![Build Status](https://travis-ci.org/nesive/hapi-json-view.svg)](https://travis-ci.org/nesive/hapi-json-view)
 
 A view engine for the hapi framework.
 
 ## Installation
 
 ```sh
-npm install --save hapi-json-view
+npm install --save @nesive/hapi-json-view
 ```
 
 ## Usage
@@ -14,7 +14,7 @@ server.js:
 
 ```js
 var Hapi = require('hapi');
-var HapiJsonView = require('hapi-json-view');
+var HapiJsonView = require('@nesive/hapi-json-view');
 var Path = require('path');
 var Vision = require('vision');
 
@@ -186,7 +186,7 @@ Partials can be registered through the engine configuration:
 
 ```js
 var Hapi = require('hapi');
-var HapiJsonView = require('hapi-json-view');
+var HapiJsonView = require('@nesive/hapi-json-view');
 var Path = require('path');
 var Vision = require('vision');
 
