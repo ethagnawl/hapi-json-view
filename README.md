@@ -39,12 +39,12 @@ server.register(Vision, (err) => {
     path: '/article',
     handler: function(request, reply) {
       const article = {
-          _id: '507f1f77bcf86cd799439011',
-          title: 'Node.js',
-          author: {
-            _id: '507f191e810c19729de860ea',
-            name: 'John Doe',
-          },
+        _id: '507f1f77bcf86cd799439011',
+        title: 'Node.js',
+        author: {
+          _id: '507f191e810c19729de860ea',
+          name: 'John Doe',
+        },
       };
 
       reply.view('article', { article: article });
@@ -100,7 +100,7 @@ If `json.set()` is called without a key, it assign the value to the parent key:
 
 ```js
 json.set('title', (json) => {
-    json.set('Node.js');
+  json.set('Node.js');
 });
 
 // => { title: 'Node.js' }
@@ -138,7 +138,7 @@ Helpers can be registered through the engine configuration:
 
 ```js
 const Hapi = require('hapi');
-const HapiJsonView = require('hapi-json-view');
+const HapiJsonView = require('@nesive/hapi-json-view');
 const Path = require('path');
 const Vision = require('vision');
 
