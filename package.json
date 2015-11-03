@@ -4,7 +4,7 @@
   "description": "JSON view engine for hapi.",
   "main": "lib/index.js",
   "scripts": {
-    "test": "lab --assert code --threshold 100"
+    "test": "lab --assert code --lint --threshold 100 --verbose"
   },
   "repository": {
     "type": "git",
@@ -15,18 +15,21 @@
     "json",
     "view"
   ],
-  "author": "Nesive <info@nesive.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/nesive/hapi-json-view/issues"
   },
   "homepage": "https://github.com/nesive/hapi-json-view",
+  "engines": {
+    "node": ">=4.0.0"
+  },
   "peerDependencies": {
     "hapi": ">=10.x.x",
     "vision": ">=3.x.x"
   },
   "devDependencies": {
     "code": "2.x.x",
+    "@nesive/eslint-config": "1.x.x",
     "hapi": "11.x.x",
     "lab": "7.x.x",
     "vision": "3.x.x"

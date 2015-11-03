@@ -1,158 +1,135 @@
 'use strict';
 
 // Load external modules
-var Code = require('code');
-var Lab = require('lab');
+const Lab = require('lab');
 
 // Load internal modules
-var Runtime = require('../lib/runtime');
+const Environment = require('../lib/environment');
+const Runtime = require('../lib/runtime');
 
 // Test shortcuts
-var lab = exports.lab = Lab.script();
-var describe = lab.experiment;
-var it = lab.test;
-var expect = Code.expect;
+const lab = exports.lab = Lab.script();
+const expect = Lab.assertions.expect;
 
+lab.describe('set()', () => {
+  lab.it('sets the value if key is not provided', (done) => {
+    const json = new Runtime();
+    json.set('example');
 
-describe('set()', function () {
+    expect(json.content).to.equal('example');
+    done();
+  });
 
-    it('sets the value if key is not provided', function (done) {
-
-        var json = new Runtime();
-        json.set('example');
-
-        expect(json.content).to.equal('example');
-        done();
+  lab.it('executes and sets the value if key is not provided and value is a function', (done) => {
+    const json = new Runtime();
+    json.set((json) => {
+      json.set('example');
     });
 
-    it('executes and sets the value if key is not provided and value is a function', function (done) {
+    expect(json.content).to.equal('example');
+    done();
+  });
 
-        var json = new Runtime();
-        json.set(function (json) {
+  lab.it('sets the value if key is provided', (done) => {
+    const json = new Runtime();
+    json.set('test', 'example');
 
-            json.set('example');
-        });
+    expect(json.content).to.deep.equal({ test: 'example' });
+    done();
+  });
 
-        expect(json.content).to.equal('example');
-        done();
+  lab.it('executes and sets the value if key is provided and value is a function', (done) => {
+    const json = new Runtime();
+    json.set('test', (json) => {
+      json.set('example');
     });
 
-    it('sets the value if key is provided', function (done) {
-
-        var json = new Runtime();
-        json.set('test', 'example');
-
-        expect(json.content).to.deep.equal({ test: 'example' });
-        done();
-    });
-
-    it('executes and sets the value if key is provided and value is a function', function (done) {
-
-        var json = new Runtime();
-        json.set('test', function (json) {
-
-            json.set('example');
-        });
-
-        expect(json.content).to.deep.equal({ test: 'example' });
-        done();
-    });
+    expect(json.content).to.deep.equal({ test: 'example' });
+    done();
+  });
 });
 
+lab.describe('array()', () => {
+  lab.it('creates an array with a primitive', (done) => {
+    const json = new Runtime();
+    json.set('test', json.array(['one', 'two'], (json, item) => {
+      json.set(item);
+    }));
 
-describe('array()', function () {
+    expect(json.content).to.deep.equal({ test: ['one', 'two'] });
+    done();
+  });
 
-    it('creates an array with a primitive', function (done) {
+  lab.it('creates an array with an object', (done) => {
+    const json = new Runtime();
+    json.set('test', json.array(['one', 'two'], (json, item) => {
+      json.set('item', item);
+    }));
 
-        var json = new Runtime();
-        json.set('test', json.array(['one', 'two'], function (json, item) {
+    expect(json.content).to.deep.equal({ test: [{ item: 'one' }, { item: 'two' }] });
+    done();
+  });
 
-            json.set(item);
-        }));
+  lab.it('creates an array without a key', (done) => {
+    const json = new Runtime();
+    json.set(json.array(['one', 'two'], (json, item) => {
+      json.set(item);
+    }));
 
-        expect(json.content).to.deep.equal({ test: ['one', 'two'] });
-        done();
-    });
-
-    it('creates an array with an object', function (done) {
-
-        var json = new Runtime();
-        json.set('test', json.array(['one', 'two'], function (json, item) {
-
-            json.set('item', item);
-        }));
-
-        expect(json.content).to.deep.equal({ test: [{ item: 'one' }, { item: 'two' }] });
-        done();
-    });
-
-    it('creates an array without a key', function (done) {
-
-        var json = new Runtime();
-        json.set(json.array(['one', 'two'], function (json, item) {
-
-            json.set(item);
-        }));
-
-        expect(json.content).to.deep.equal(['one', 'two']);
-        done();
-    });
+    expect(json.content).to.deep.equal(['one', 'two']);
+    done();
+  });
 });
 
+lab.describe('extract()', () => {
+  lab.it('extracts values', (done) => {
+    const json = new Runtime();
+    const object = { one: 'one', two: 'two', three: 'three', four: 'four' };
+    json.extract(object, ['two', 'three']);
 
-describe('extract()', function () {
-
-    it('extracts values', function (done) {
-
-        var json = new Runtime();
-        var object = { one: 'one', two: 'two', three: 'three', four: 'four' };
-        json.extract(object, ['two', 'three']);
-
-        expect(json.content).to.deep.equal({ two: 'two', three: 'three' });
-        done();
-    });
+    expect(json.content).to.deep.equal({ two: 'two', three: 'three' });
+    done();
+  });
 });
 
+lab.describe('helper()', () => {
+  lab.it('calls the helper function', (done) => {
+    const helper = function(text) {
+      return text.toUpperCase();
+    };
 
-describe('helper()', function () {
+    const environment = new Environment();
+    environment.registerHelper('uppercase', helper);
 
-    it('calls the helper function', function (done) {
+    const json = new Runtime(environment);
+    json.set('test', json.helper('uppercase', 'example'));
 
-        var helper = function (text) {
-
-            return text.toUpperCase();
-        };
-
-        var json = new Runtime({ uppercase: helper });
-        json.set('test', json.helper('uppercase', 'example'));
-
-        expect(json.content).to.deep.equal({ test: 'EXAMPLE' });
-        done();
-    });
+    expect(json.content).to.deep.equal({ test: 'EXAMPLE' });
+    done();
+  });
 });
 
+lab.describe('partial()', () => {
+  lab.it('renders the partial', (done) => {
+    const partial = 'json.set(\'name\', author.name)';
 
-describe('partial()', function () {
+    const environment = new Environment();
+    environment.registerPartial('author', partial);
 
-    it('renders the partial', function (done) {
+    const json = new Runtime(environment);
+    json.set('author', json.partial('author', { author: { name: 'example' } }));
 
-        var json = new Runtime(null, { author: 'json.set(\'name\', author.name)' });
-        json.set('author', json.partial('author', { author: { name: 'example' } }));
-
-        expect(json.content).to.deep.equal({ author: { name: 'example' } });
-        done();
-    });
+    expect(json.content).to.deep.equal({ author: { name: 'example' } });
+    done();
+  });
 });
 
+lab.describe('run()', () => {
+  lab.it('runs the runtime', (done) => {
+    const runtime = new Runtime();
+    const result = runtime.run('json.set(\'name\', author.name)', { author: { name: 'example' } });
 
-describe('run()', function () {
-
-    it('runs the runtime', function (done) {
-
-        var runtime = new Runtime();
-        var result = runtime.run('json.set(\'name\', author.name)', { author: { name: 'example' } });
-
-        expect(result).to.deep.equal({ name: 'example' });
-        done();
-    });
+    expect(result).to.deep.equal({ name: 'example' });
+    done();
+  });
 });
