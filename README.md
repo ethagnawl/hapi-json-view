@@ -138,7 +138,7 @@ Helpers can be registered through the engine configuration:
 
 ```js
 const Hapi = require('hapi');
-const HapiJsonView = require('hapi-json-view');
+const HapiJsonView = require('@nesive/hapi-json-view');
 const Path = require('path');
 const Vision = require('vision');
 
