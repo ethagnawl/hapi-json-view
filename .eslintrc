@@ -1,8 +1,6 @@
 {
-    "extends": "./node_modules/lab/lib/linters/eslint/.eslintrc",
-    "rules": {
-        "no-new-func": 0,
-        "no-shadow": 0,
-        "hapi/no-shadow-relaxed": 0
-    }
+  "extends": "@nesive/eslint-config",
+  "rules": {
+    "no-new-func": 0
+  }
 }

@@ -1,7 +1,5 @@
 'use strict';
 
-
-exports = module.exports = function (context) {
-
-    return context.toUpperCase();
+exports = module.exports = function(context) {
+  return context.toUpperCase();
 };
