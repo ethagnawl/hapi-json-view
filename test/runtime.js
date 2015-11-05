@@ -70,6 +70,14 @@ lab.describe('array()', () => {
     done();
   });
 
+  lab.it('creates an array with a falsy value', (done) => {
+    const json = new Runtime();
+    json.set(json.array(null));
+
+    expect(json.content).to.deep.equal([]);
+    done();
+  });
+
   lab.it('creates an array without a key', (done) => {
     const json = new Runtime();
     json.set(json.array(['one', 'two'], (json, item) => {
