@@ -4,8 +4,8 @@
 const Lab = require('lab');
 
 // Load internal modules
-const Environment = require('../lib/environment');
-const Runtime = require('../lib/runtime');
+const Environment = require('../src/environment');
+const Runtime = require('../src/runtime');
 
 // Test shortcuts
 const lab = exports.lab = Lab.script();
