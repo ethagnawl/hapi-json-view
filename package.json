@@ -2,7 +2,7 @@
   "name": "@nesive/hapi-json-view",
   "version": "3.0.0",
   "description": "JSON view engine for hapi.",
-  "main": "lib/index.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "lab --assert code --lint --threshold 100 --verbose"
   },

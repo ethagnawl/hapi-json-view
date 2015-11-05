@@ -4,8 +4,8 @@
 const Lab = require('lab');
 
 // Load internal modules
-const Environment = require('../lib/environment.js');
-const HapiJsonView = require('../lib/index.js');
+const Environment = require('../src/environment.js');
+const HapiJsonView = require('../src/index.js');
 
 // Test shortcuts
 const lab = exports.lab = Lab.script();

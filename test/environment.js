@@ -7,8 +7,8 @@ const Path = require('path');
 const Vision = require('vision');
 
 // Load internal modules
-const Environment = require('../lib/environment');
-const HapiJsonView = require('../lib/index.js');
+const Environment = require('../src/environment');
+const HapiJsonView = require('../src/index.js');
 
 // Test shortcuts
 const lab = exports.lab = Lab.script();
