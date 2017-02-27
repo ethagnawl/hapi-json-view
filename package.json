@@ -1,5 +1,5 @@
 {
-  "name": "@nesive/hapi-json-view",
+  "name": "@articulate/hapi-json-view",
   "version": "4.0.0",
   "description": "JSON view engine for hapi.",
   "main": "src/index.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nesive/hapi-json-view.git"
+    "url": "git+https://github.com/articulate/hapi-json-view.git"
   },
   "keywords": [
     "hapi",
@@ -17,9 +17,9 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/nesive/hapi-json-view/issues"
+    "url": "https://github.com/articulate/hapi-json-view/issues"
   },
-  "homepage": "https://github.com/nesive/hapi-json-view",
+  "homepage": "https://github.com/articulate/hapi-json-view",
   "engines": {
     "node": ">=4.0.0"
   },
